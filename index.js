@@ -1,61 +1,57 @@
 const hexColor = document.querySelector('#hexColor');
 const colorInput = document.querySelector('#colorInput');
+const sliderRange = document.querySelector('#sliderRange');
+const slider = document.querySelector('#slider');
 
 hexColor.addEventListener('keyup', (e) => {
-  const hexValue = e.currentTarget.value;
   if (!isValidHex(hexValue)) return;
 
-  let stripHex = hexValue.replace('#', '');
-  // expand into 6 characters if there is only 3 input
+  const hexValue = e.target.value;
+  const stripHex = removeHash(hexColor);
+  colorInput.style.backgroundColor = `#${stripHex}`;
+});
+
+slider.addEventListener('input', (e) => {
+  const sliderValue = e.target.value;
+  sliderRange.textContent = sliderValue + '%';
+});
+
+function removeHash(hex) {
+  const stripHex = hex.replace('#', '');
+  return stripHex;
+}
+
+function isValidHex(hex) {
+  if (!hex) return false;
+
+  const stripHex = removeHash(hex);
+  return stripHex.length === 3 || stripHex.length === 6;
+}
+
+function hexToRgb(hex) {
+  if (!isValidHex(hex)) return;
+
+  let stripHex = removeHash(hex);
   if (stripHex.length === 3) {
+    // expand into 6 characters if there is only 3 input
     stripHex = stripHex
       .split('')
       .map((char) => char + char)
       .join('');
   }
 
-  colorInput.style.backgroundColor = `#${stripHex}`;
-});
-
-const validHexChar = [
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  'a',
-  'b',
-  'c',
-  'd',
-  'e',
-  'f',
-];
-function isValidHex(hex) {
-  if (!hex) return false;
-
-  const stripHex = hex.replace('#', '');
-  return stripHex.length === 3 || stripHex.length === 6;
-
-  // if (stripHex.length === 3 || stripHex.length === 6) {
-  //   const validHex = Array.from(stripHex).every((char) => {
-  //     return validHexChar.includes(char);
-  //   });
-
-  //   return validHex;
-  // } else {
-  //   return false;
-  // }
-}
-
-function hexToRgb(hex) {
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
+  const r = parseInt(stripHex.substring(0, 2), 16);
+  const g = parseInt(stripHex.substring(2, 4), 16);
+  const b = parseInt(stripHex.substring(4, 6), 16);
 
   return `(${r},${g},${b})`;
+}
+
+function RbgToHex(r, g, b) {
+  const redHex = r.toString(16).padStart(2, '0');
+  const greenHex = g.toString(16).padStart(2, '0');
+  const blueHex = b.toString(16).padStart(2, '0');
+
+  const hex = '#' + redHex + greenHex + blueHex;
+  return hex;
 }
