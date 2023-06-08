@@ -30,7 +30,8 @@ input {
 }
 
 input[type='text'] {
-  padding: 0.3rem;
+  color: black;
+  padding: 0.2rem 0.3rem;
 }
 
 .container {
