@@ -43,6 +43,12 @@ input[type='text'] {
   border-radius: 15px;
 }
 
+#sliderRange.active {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+}
+
 .toggle {
   display: flex;
   align-items: center;

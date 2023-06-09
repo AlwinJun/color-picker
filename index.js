@@ -22,9 +22,14 @@ slider.addEventListener('input', (e) => {
   console.log(hexColor.value, sliderValue);
   console.log(alteredHex);
   sliderRange.textContent = sliderValue + '%';
-  alteredColor.style.backgroundColor = alteredHex;
 
-  alterHexText.textContent = alteredHex;
+  sliderRange.classList.add('active');
+  alteredColor.style.backgroundColor = alteredHex;
+  alterHexText.innerText = alteredHex;
+});
+
+slider.addEventListener('change', () => {
+  sliderRange.classList.remove('active');
 });
 
 function isValidHex(hex) {
