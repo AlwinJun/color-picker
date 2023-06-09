@@ -44,10 +44,10 @@ function hexToRgb(hex) {
   const g = parseInt(stripHex.substring(2, 4), 16);
   const b = parseInt(stripHex.substring(4, 6), 16);
 
-  return `(${r},${g},${b})`;
+  return { r, g, b };
 }
 
-function RbgToHex(r, g, b) {
+function RgbToHex(r, g, b) {
   const redHex = r.toString(16).padStart(2, '0');
   const greenHex = g.toString(16).padStart(2, '0');
   const blueHex = b.toString(16).padStart(2, '0');
@@ -55,3 +55,18 @@ function RbgToHex(r, g, b) {
   const hex = '#' + redHex + greenHex + blueHex;
   return hex;
 }
+
+function alterColor(hex, percent) {
+  const { r, g, b } = hexToRgb(hex);
+
+  const amount = Math.floor((percent / 100) * 255);
+  console.log(amount);
+  const newR = r + amount;
+  const newG = g + amount;
+  const newB = b + amount;
+
+  console.log({ newR, newG, newB });
+  return RgbToHex(newR, newG, newB);
+}
+
+console.log(alterColor('ac5e10', 70));
