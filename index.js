@@ -2,36 +2,42 @@ const hexColor = document.querySelector('#hexColor');
 const colorInput = document.querySelector('#colorInput');
 const sliderRange = document.querySelector('#sliderRange');
 const slider = document.querySelector('#slider');
+const alteredColor = document.querySelector('#alteredColor');
+const alterHexText = document.querySelector('#alterHexText');
 
 hexColor.addEventListener('keyup', (e) => {
+  const hexValue = e.target.value;
   if (!isValidHex(hexValue)) return;
 
-  const hexValue = e.target.value;
-  const stripHex = removeHash(hexColor);
+  const stripHex = hexValue.replace('#', '');
   colorInput.style.backgroundColor = `#${stripHex}`;
 });
 
 slider.addEventListener('input', (e) => {
-  const sliderValue = e.target.value;
-  sliderRange.textContent = sliderValue + '%';
-});
+  if (!isValidHex(hexColor.value)) return;
 
-function removeHash(hex) {
-  const stripHex = hex.replace('#', '');
-  return stripHex;
-}
+  const sliderValue = e.target.value;
+  const alteredHex = alterColor(hexColor.value, sliderValue);
+
+  console.log(hexColor.value, sliderValue);
+  console.log(alteredHex);
+  sliderRange.textContent = sliderValue + '%';
+  alteredColor.style.backgroundColor = alteredHex;
+
+  alterHexText.textContent = alteredHex;
+});
 
 function isValidHex(hex) {
   if (!hex) return false;
 
-  const stripHex = removeHash(hex);
+  const stripHex = hex.replace('#', '');
   return stripHex.length === 3 || stripHex.length === 6;
 }
 
 function hexToRgb(hex) {
   if (!isValidHex(hex)) return;
 
-  let stripHex = removeHash(hex);
+  let stripHex = hex.replace('#', '');
   if (stripHex.length === 3) {
     // expand into 6 characters if there is only 3 input
     stripHex = stripHex
@@ -60,13 +66,23 @@ function alterColor(hex, percent) {
   const { r, g, b } = hexToRgb(hex);
 
   const amount = Math.floor((percent / 100) * 255);
-  console.log(amount);
-  const newR = r + amount;
-  const newG = g + amount;
-  const newB = b + amount;
+  let newR = r + amount;
+  let newG = g + amount;
+  let newB = b + amount;
 
-  console.log({ newR, newG, newB });
+  [newR, newG, newB] = isValidRgbRange(newR, newG, newB);
+
   return RgbToHex(newR, newG, newB);
 }
 
-console.log(alterColor('ac5e10', 70));
+function isValidRgbRange(r, g, b) {
+  const arrRgb = [];
+  [r, g, b].map((rgb) => {
+    if (rgb > 255) rgb = 255;
+    if (rgb < 0) rgb = 0;
+
+    arrRgb.push(rgb);
+  });
+
+  return arrRgb;
+}
