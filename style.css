@@ -38,9 +38,34 @@ input[type='text'] {
   padding: clamp(0.75rem, 2vw, 1.2rem);
   margin: 2rem auto;
   width: min(90%, 650px);
-  height: 550px;
+  min-height: 550px;
   background-color: #031d41;
   border-radius: 15px;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-text.active {
+  color: #fff;
+}
+
+.toggle-btn {
+  width: 3rem;
+  height: 1.7rem;
+  padding: 0.2rem;
+  margin-inline: 0.3rem;
+  border-radius: 7rem;
+  background-color: #c7ccd4;
+}
+
+#inner-circle {
+  height: 100%;
+  width: 50%;
+  border-radius: 50%;
+  background-color: #031d41;
 }
 
 .stack {
@@ -55,4 +80,8 @@ input[type='text'] {
   width: 100%;
   height: 100px;
   background-color: #c7ccd4;
+}
+
+#alterHexText {
+  margin-left: 1rem;
 }
