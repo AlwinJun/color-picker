@@ -31,10 +31,13 @@ slider.addEventListener('input', (e) => {
   if (!isValidHex(hexColor.value)) return;
 
   const sliderValue = e.target.value;
-  const alteredHex = alterColor(hexColor.value, sliderValue);
 
-  console.log(hexColor.value, sliderValue);
-  console.log(alteredHex);
+  const lightOrDarkValue = toggleBtn.classList.contains('toggled')
+    ? -sliderValue
+    : sliderValue;
+
+  const alteredHex = alterColor(hexColor.value, lightOrDarkValue);
+
   sliderRange.textContent = sliderValue + '%';
 
   sliderRange.classList.add('active');
