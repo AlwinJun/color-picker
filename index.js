@@ -1,5 +1,6 @@
 const hexColor = document.querySelector('#hexColor');
 const colorInput = document.querySelector('#colorInput');
+const toggleBtn = document.querySelector('#toggleBtn');
 const sliderRange = document.querySelector('#sliderRange');
 const slider = document.querySelector('#slider');
 const alteredColor = document.querySelector('#alteredColor');
@@ -11,6 +12,19 @@ hexColor.addEventListener('keyup', (e) => {
 
   const stripHex = hexValue.replace('#', '');
   colorInput.style.backgroundColor = `#${stripHex}`;
+});
+
+toggleBtn.addEventListener('click', () => {
+  toggleBtn.classList.toggle('toggled');
+
+  const toggleText = document.querySelectorAll('.toggle-text');
+  if (toggleBtn.classList.contains('toggled')) {
+    toggleText[0].classList.remove('selected');
+    toggleText[1].classList.add('selected');
+  } else {
+    toggleText[0].classList.add('selected');
+    toggleText[1].classList.remove('selected');
+  }
 });
 
 slider.addEventListener('input', (e) => {
