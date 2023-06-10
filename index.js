@@ -12,10 +12,12 @@ hexColor.addEventListener('keyup', (e) => {
 
   const stripHex = hexValue.replace('#', '');
   colorInput.style.backgroundColor = `#${stripHex}`;
+  reset();
 });
 
 toggleBtn.addEventListener('click', () => {
   toggleBtn.classList.toggle('toggled');
+  reset();
 
   const toggleText = document.querySelectorAll('.toggle-text');
   if (toggleBtn.classList.contains('toggled')) {
@@ -107,4 +109,12 @@ function isValidRgbRange(r, g, b) {
   });
 
   return arrRgb;
+}
+
+function reset() {
+  sliderRange.textContent = '0%';
+  slider.value = 0;
+  const stripHex = hexColor.value.replace('#', '');
+  alteredColor.style.backgroundColor = '#' + stripHex;
+  alterHexText.innerText = '#' + stripHex;
 }
