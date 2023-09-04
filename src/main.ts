@@ -22,13 +22,8 @@ toggleBtn.addEventListener('click', (): void => {
   reset();
 
   const toggleText = document.querySelectorAll('.toggle-text') as NodeListOf<HTMLParagraphElement>;
-  if (toggleBtn.classList.contains('toggled')) {
-    toggleText[0].classList.remove('selected');
-    toggleText[1].classList.add('selected');
-  } else {
-    toggleText[0].classList.add('selected');
-    toggleText[1].classList.remove('selected');
-  }
+  toggleText[0].classList.toggle('selected');
+  toggleText[1].classList.toggle('selected');
 });
 
 slider.addEventListener('input', (e: Event): void => {
@@ -123,7 +118,7 @@ function isValidRgbRange(r: number, g: number, b: number): number[] {
 function reset() {
   sliderRange.textContent = '0%';
   slider.value = '0';
-  const stripHex = hexColor.value.replace('#', '');
+  const stripHex: string = hexColor.value.replace('#', '');
   alteredColor.style.backgroundColor = '#' + stripHex;
   alterHexText.innerText = '#' + stripHex;
 }
